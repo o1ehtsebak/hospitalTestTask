@@ -38,5 +38,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: olehtsebak/hospital-app:$(date +%s)
+        tags: olehtsebak/hospital-app:latest
       
