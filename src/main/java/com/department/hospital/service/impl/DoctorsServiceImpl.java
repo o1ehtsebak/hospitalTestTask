@@ -3,6 +3,7 @@ package com.department.hospital.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import com.department.hospital.mapper.DoctorMapper;
 import com.department.hospital.repository.DepartmentsRepository;
 import com.department.hospital.repository.DoctorsRepository;
 import com.department.hospital.service.DoctorsService;
+
+import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 
 
 @Service
@@ -54,13 +57,15 @@ public class DoctorsServiceImpl implements DoctorsService {
 			doctor.setFirstName(createUpdateDoctorDto.getFirstName());
 			doctor.setLastName(createUpdateDoctorDto.getLastName());
 			doctor.setDepartments(newDepartments);
-			newDepartments.forEach(dep -> dep.getDoctors().add(doctor));
+			newDepartments.stream().filter(dep -> isNotEmpty(dep.getDoctors()))
+					.filter(dep -> !dep.getDoctors().contains(doctor)).forEach(dep -> dep.getDoctors().add(doctor));
 
 			oldDepartments.removeAll(newDepartments);
 			oldDepartments.forEach(dep -> dep.getDoctors().remove(doctor));
 
 			departmentsRepository.saveAll(oldDepartments);
-			departmentsRepository.saveAll(newDepartments);
+			doctorsRepository.save(doctor);
+
 		}
 
 		return doctorOptional.map(doctorMapper::doctorToDoctorDto);

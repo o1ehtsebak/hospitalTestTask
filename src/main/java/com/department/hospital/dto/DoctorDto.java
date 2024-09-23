@@ -13,5 +13,4 @@ public class DoctorDto {
 	private long id;
 	private String firstName;
 	private String lastName;
-	private List<DepartmentDto> departments;
 }

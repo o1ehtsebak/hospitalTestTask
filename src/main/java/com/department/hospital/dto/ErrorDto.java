@@ -3,12 +3,11 @@ package com.department.hospital.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
-public class RoomDto {
+public class ErrorDto {
 
-	private long id;
-	private int number;
-	private int numberOfPlaces;
+	private String errorCode;
+	private String errorMsg;
+
 }

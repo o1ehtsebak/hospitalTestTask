@@ -8,13 +8,14 @@ import lombok.*;
 @NoArgsConstructor
 @ToString(exclude = { "department" })
 @Entity
-@Table(name = "rooms")
+@Table(name = "rooms", uniqueConstraints = { @UniqueConstraint(columnNames = { "number", "department_id" }) })
 public class Room {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(unique = true)
 	private int number;
 	private int numberOfPlaces;
 
