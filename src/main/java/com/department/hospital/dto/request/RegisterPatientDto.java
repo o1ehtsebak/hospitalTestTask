@@ -1,7 +1,6 @@
 package com.department.hospital.dto.request;
 
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.validation.Valid;
@@ -22,6 +21,7 @@ public class RegisterPatientDto {
 	@Valid
 	@NotEmpty
 	private String lastName;
+	//	TODO: validation for dates should be added - start date can't be after end date
 	@NotNull
 	private LocalDateTime treatmentStartDate;
 	@NotNull

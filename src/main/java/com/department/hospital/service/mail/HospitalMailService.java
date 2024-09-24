@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class HospitalMailService {
 
 	private static final String PATIENT_RELEASED = "Patient Released";
+	private static final String NEW_PATIENT = "New Patient";
 	private static final String RELEASE_MSG_FORMAT = "Hello. Patient ID - %s, name - %s %s was released from hospital.";
 	private static final String NEW_PATIENT_MSG_FORMAT = "Hello. You have new patient. Patient ID - %s, name - %s %s is. Room - %s";
 
@@ -30,7 +31,7 @@ public class HospitalMailService {
 	public void sendNewPatientMsg(String toMail, Long patientId, String firstName, String lastName, Integer roomRumber) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(toMail);
-		message.setSubject(PATIENT_RELEASED);
+		message.setSubject(NEW_PATIENT);
 		message.setText(String.format(NEW_PATIENT_MSG_FORMAT, patientId, firstName, lastName, roomRumber));
 		mailSender.send(message);
 	}

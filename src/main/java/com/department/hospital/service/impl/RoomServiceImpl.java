@@ -47,18 +47,16 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public Optional<RoomDto> updateRoom(CreateUpdateRoomDto createUpdateRoomDto) {
-//		return roomsRepository
-//				.getRoomByDepartmentIdAndNumber(createUpdateRoomDto.getDepartmentId(), createUpdateRoomDto.getOriginalNumber())
-//				.map(room -> updateRoom(createUpdateRoomDto, room));
-		return null;
+		return roomsRepository
+				.getRoomByDepartmentIdAndNumber(createUpdateRoomDto.getDepartmentId(), createUpdateRoomDto.getOriginalNumber())
+				.map(room -> updateRoom(createUpdateRoomDto, room));
 
 	}
 
 	private RoomDto updateRoom(CreateUpdateRoomDto createUpdateRoomDto, Room room) {
-//		room.setNumber(createUpdateRoomDto.getNumber());
-//		room.setNumberOfPlaces(createUpdateRoomDto.getNumberOfPlaces());
-//		roomsRepository.save(room);
-//		return roomMapper.roomToRoomDto(room);
-		return null;
+		room.setNumber(createUpdateRoomDto.getNumber());
+		room.setNumberOfPlaces(createUpdateRoomDto.getNumberOfPlaces());
+		roomsRepository.save(room);
+		return roomMapper.roomToRoomDto(room);
 	}
 }

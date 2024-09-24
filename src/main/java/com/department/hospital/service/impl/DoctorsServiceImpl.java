@@ -65,7 +65,6 @@ public class DoctorsServiceImpl implements DoctorsService {
 
 			departmentsRepository.saveAll(oldDepartments);
 			doctorsRepository.save(doctor);
-
 		}
 
 		return doctorOptional.map(doctorMapper::doctorToDoctorDto);
