@@ -8,19 +8,13 @@ on:
 
 jobs:
 
-  build:
+  Build and publish Docker image:
 
     runs-on: ubuntu-latest
     steps:
     - name: Echo version
       run: |
-          echo Version is ${{ vars.VERSION }}.${{ github.run_number }}
-    - name: Log in to Docker Hub
-      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-    
+          echo Version is ${{ github.run_number }}
     - name: Checkout sources
       uses: actions/checkout@v4
     - name: Set up JDK 17
@@ -34,6 +28,11 @@ jobs:
       run: chmod +x ./gradlew
     - name: Build with Gradle
       run: ./gradlew build test
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and push Docker image
       id: push
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
@@ -41,5 +40,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: olehtsebak/hospital-app:latest
+        tags: olehtsebak/hospital-app:${{ github.run_number }}
       
