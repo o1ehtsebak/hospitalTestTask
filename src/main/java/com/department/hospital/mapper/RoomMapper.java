@@ -9,7 +9,7 @@ import com.department.hospital.dto.request.CreateUpdateRoomDto;
 import com.department.hospital.entity.Room;
 
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {PatientMapper.class})
 public interface RoomMapper {
 
 	RoomMapper INSTANCE = Mappers.getMapper(RoomMapper.class);

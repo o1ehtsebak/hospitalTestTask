@@ -3,10 +3,12 @@ package com.department.hospital.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 
 @Data
 @NoArgsConstructor
-@ToString(exclude = { "department" })
+@ToString(exclude = { "department", "patients"})
 @Entity
 @Table(name = "rooms", uniqueConstraints = { @UniqueConstraint(columnNames = { "number", "department_id" }) })
 public class Room {
@@ -22,4 +24,7 @@ public class Room {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "department_id", nullable = false)
 	private Department department;
+
+	@OneToMany(mappedBy = "room")
+	private List<Patient> patients;
 }

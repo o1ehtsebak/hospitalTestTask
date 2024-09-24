@@ -6,7 +6,7 @@ import com.department.hospital.entity.Doctor;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {PatientMapper.class})
 public interface DoctorMapper {
 
 	DoctorMapper INSTANCE = Mappers.getMapper(DoctorMapper.class);
