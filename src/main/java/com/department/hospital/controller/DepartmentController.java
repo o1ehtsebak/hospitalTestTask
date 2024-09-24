@@ -1,6 +1,7 @@
 package com.department.hospital.controller;
 
 import com.department.hospital.dto.DepartmentDto;
+import com.department.hospital.dto.DepartmentLoadDto;
 import com.department.hospital.dto.request.CreateUpdateDepartmentDto;
 import com.department.hospital.service.DepartmentService;
 import jakarta.validation.Valid;
@@ -21,6 +22,11 @@ public class DepartmentController {
 		return departmentService.findDepartmentByName(name)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());
+	}
+
+	@GetMapping("/stats")
+	public DepartmentLoadDto getDepartmentLoadInfo(@RequestParam Long id) {
+		return departmentService.getDepartmentLoadInfo(id);
 	}
 
 	@PostMapping
