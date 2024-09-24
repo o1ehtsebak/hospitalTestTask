@@ -11,6 +11,8 @@ services:
       dockerfile: Dockerfile
     environment:
       DB_HOST: 'hospital-db'
+      HOSPITAL_MAIL: 'oleg.tsebak16@gmail.com'
+      HOSPITAL_MAIL_SECRET:
     ports:
       - 8085:8085
   hospital-db:
@@ -18,7 +20,6 @@ services:
     image: mysql:8.0.31
     restart: always
     ports:
-#       hostPort:containerPort
       - "33062:3306"
     volumes:
       - my-db:/var/lib/mysql
