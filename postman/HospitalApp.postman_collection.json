@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "972eebcc-6699-4fcb-a25e-1b00b695970f",
+		"name": "HospitalApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2844350"
+	},
+	"item": [
+		{
+			"name": "Get Department by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8095/departments?name=Surgery",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Surgery"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Department Load stats",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8095/departments/stats?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments",
+						"stats"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get room",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/departments/3/rooms?roomNumber=500",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments",
+						"3",
+						"rooms"
+					],
+					"query": [
+						{
+							"key": "roomNumber",
+							"value": "500"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Department",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Pediatrics2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/departments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Department",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Pediatrics3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/departments/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new Room",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"number\": 5,\r\n    \"numberOfPlaces\": 500\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/departments/1/rooms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments",
+						"1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Room",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"originalNumber\": 470,\r\n    \"number\": 471,\r\n    \"numberOfPlaces\": 45\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/departments/1/rooms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"departments",
+						"1",
+						"rooms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Doctor",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/doctors?doctorId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"doctors"
+					],
+					"query": [
+						{
+							"key": "doctorId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Doctor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Week\",\r\n    \"departments\": [\r\n        2\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/doctors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"doctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Doctor",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Week2\",\r\n    \"departments\": [\r\n        \r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/doctors/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"doctors",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Patient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"John\",\r\n    \"lastName\": \"Week\",\r\n    \"treatmentStartDate\": \"2024-09-10T00:00:00\",\r\n    \"treatmentEndDate\": \"2024-12-10T00:00:00\",\r\n    \"doctorId\": 1,\r\n    \"roomId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8095/patients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8095",
+					"path": [
+						"patients"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

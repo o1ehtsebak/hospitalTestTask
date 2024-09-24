@@ -12,9 +12,8 @@ services:
     environment:
       DB_HOST: 'hospital-db'
       HOSPITAL_MAIL: 'oleg.tsebak16@gmail.com'
-      HOSPITAL_MAIL_SECRET:
     ports:
-      - 8085:8085
+      - 8095:8095
   hospital-db:
     container_name: hospital-db
     image: mysql:8.0.31
