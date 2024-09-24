@@ -50,7 +50,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 			final BigDecimal loadPercentage = BigDecimal.valueOf(patientsInsideRoom)
 					.divide(BigDecimal.valueOf(numberOfPlaces), 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
 
-			roomLoadDto.setLoadedPlacedPercent(String.format("Room is loaded by %s%%", loadPercentage));
+			roomLoadDto.setLoadedPlacesPercent(String.format("Room is loaded by %s %%", loadPercentage));
 			return roomLoadDto;
 		}).collect(Collectors.toList());
 
