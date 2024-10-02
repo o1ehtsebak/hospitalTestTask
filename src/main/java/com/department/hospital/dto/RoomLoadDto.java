@@ -1,15 +1,4 @@
 package com.department.hospital.dto;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
-@Data
-@NoArgsConstructor
-public class RoomLoadDto {
-
-	private long id;
-	private int number;
-	private int numberOfAvailablePlaces;
-	private String loadedPlacesPercent;
+public record RoomLoadDto(long id, int number, int numberOfAvailablePlaces, String loadedPlacesPercentage) {
 }

@@ -87,6 +87,6 @@ public class DepartmentsIntegrationTest {
 
 		Assertions.assertNotNull(response.getBody());
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(DEP_NAME_1, response.getBody().getName());
+		assertEquals(DEP_NAME_1, response.getBody().name());
 	}
 }

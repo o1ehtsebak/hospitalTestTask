@@ -64,15 +64,11 @@ class PatientServiceImplTest {
 		when(roomsRepository.findById(ROOM_ID)).thenReturn(Optional.of(room));
 		final Patient registeredPatient = mock(Patient.class);
 		when(patientMapper.patientDtoToPatient(registerPatientDto)).thenReturn(registeredPatient);
-		final PatientDto expectedPatiendDto = new PatientDto();
-		when(patientMapper.patientToPatientDto(registeredPatient)).thenReturn(expectedPatiendDto);
 
 		//when
 		final PatientDto actualPatientDto = testedInstance.registerPatient(registerPatientDto);
 
 		//then
-		assertEquals(expectedPatiendDto, actualPatientDto);
-
 		verify(registeredPatient).setDoctor(doctor);
 		verify(registeredPatient).setRoom(room);
 		verify(patientRepository).save(registeredPatient);

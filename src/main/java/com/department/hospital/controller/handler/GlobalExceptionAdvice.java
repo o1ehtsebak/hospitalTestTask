@@ -16,11 +16,9 @@ public class GlobalExceptionAdvice {
 
 	@ExceptionHandler(EntityNotFoundException.class)
 	public ResponseEntity<ErrorDto> handleEntityNotFoundException(final EntityNotFoundException entityNotFoundException) {
-		final ErrorDto errorDto = new ErrorDto();
-		errorDto.setErrorCode("entityNotFound");
-		errorDto.setErrorMsg(String.format("There is no such entity - [%s]", entityNotFoundException.getMessage()));
-
-		return ResponseEntity.badRequest().body(errorDto);
+		final ErrorDto entityNotFound = new ErrorDto("entityNotFound",
+				String.format("There is no such entity - [%s]", entityNotFoundException.getMessage()));
+		return ResponseEntity.badRequest().body(entityNotFound);
 	}
 
 }

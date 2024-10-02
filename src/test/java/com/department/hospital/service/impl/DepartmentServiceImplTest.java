@@ -53,10 +53,10 @@ class DepartmentServiceImplTest {
 		final DepartmentLoadDto departmentLoadInfo = testedInstance.getDepartmentLoadInfo(DEPARTMENT_ID);
 
 		//then
-		assertNotNull(departmentLoadInfo.getRooms());
+		assertNotNull(departmentLoadInfo.rooms());
 
-		final RoomLoadDto roomLoadDto = departmentLoadInfo.getRooms().get(0);
-		assertEquals(expectedAvailablePlaced, roomLoadDto.getNumberOfAvailablePlaces());
-		assertTrue(roomLoadDto.getLoadedPlacesPercent().contains(expectedLoadPercent));
+		final RoomLoadDto roomLoadDto = departmentLoadInfo.rooms().get(0);
+		assertEquals(expectedAvailablePlaced, roomLoadDto.numberOfAvailablePlaces());
+		assertTrue(roomLoadDto.loadedPlacesPercentage().contains(expectedLoadPercent));
 	}
 }

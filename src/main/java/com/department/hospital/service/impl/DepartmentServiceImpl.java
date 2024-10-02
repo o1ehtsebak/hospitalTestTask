@@ -34,29 +34,17 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public DepartmentLoadDto getDepartmentLoadInfo(Long id) {
 		final Department department = departmentsRepository.getReferenceById(id);
 
-		final DepartmentLoadDto departmentLoadDto = new DepartmentLoadDto();
-		departmentLoadDto.setId(department.getId());
-		departmentLoadDto.setName(department.getName());
-
-		final List<RoomLoadDto> collect = department.getRooms().stream().map(room -> {
+		final List<RoomLoadDto> roomsLoadDto = department.getRooms().stream().map(room -> {
 			final int numberOfPlaces = room.getNumberOfPlaces();
 			final int patientsInsideRoom = room.getPatients().size();
-
-			final RoomLoadDto roomLoadDto = new RoomLoadDto();
-			roomLoadDto.setId(room.getId());
-			roomLoadDto.setNumber(room.getNumber());
-			roomLoadDto.setNumberOfAvailablePlaces(numberOfPlaces - patientsInsideRoom);
-
+			final int numberOfAvailablePlaces = numberOfPlaces - patientsInsideRoom;
 			final BigDecimal loadPercentage = BigDecimal.valueOf(patientsInsideRoom)
 					.divide(BigDecimal.valueOf(numberOfPlaces), 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
-
-			roomLoadDto.setLoadedPlacesPercent(String.format("Room is loaded by %s %%", loadPercentage));
-			return roomLoadDto;
+			final String loadedPlacesPercentage = String.format("Room is loaded by %s %%", loadPercentage);
+			return new RoomLoadDto(room.getId(), room.getNumber(), numberOfAvailablePlaces, loadedPlacesPercentage);
 		}).collect(Collectors.toList());
 
-		departmentLoadDto.setRooms(collect);
-
-		return departmentLoadDto;
+		return new DepartmentLoadDto(department.getId(), department.getName(), roomsLoadDto);
 	}
 
 	@Override
