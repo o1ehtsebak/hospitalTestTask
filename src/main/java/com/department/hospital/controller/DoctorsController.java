@@ -1,24 +1,26 @@
 package com.department.hospital.controller;
 
-import com.department.hospital.dto.DoctorDto;
-import com.department.hospital.dto.request.CreateUpdateDoctorDto;
-import com.department.hospital.repository.DepartmentsRepository;
-import com.department.hospital.service.DoctorsService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.department.hospital.dto.DoctorDto;
+import com.department.hospital.dto.request.CreateUpdateDoctorDto;
+import com.department.hospital.repository.DepartmentsRepository;
+import com.department.hospital.service.DoctorsService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import lombok.RequiredArgsConstructor;
+
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/doctors")
 public class DoctorsController {
 
-	@Autowired
-	private DoctorsService doctorsService;
-	@Autowired
-	private DepartmentsRepository departmentsRepository;
+	private final DoctorsService doctorsService;
+	private final DepartmentsRepository departmentsRepository;
 
 	@GetMapping
 	public ResponseEntity<DoctorDto> getDoctor(@Valid @Min(1) @RequestParam Long doctorId) {

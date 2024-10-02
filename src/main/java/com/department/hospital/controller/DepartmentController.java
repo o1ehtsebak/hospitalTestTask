@@ -1,21 +1,23 @@
 package com.department.hospital.controller;
 
-import com.department.hospital.dto.DepartmentDto;
-import com.department.hospital.dto.DepartmentLoadDto;
-import com.department.hospital.dto.request.CreateUpdateDepartmentDto;
-import com.department.hospital.service.DepartmentService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.department.hospital.dto.DepartmentDto;
+import com.department.hospital.dto.DepartmentLoadDto;
+import com.department.hospital.dto.request.CreateUpdateDepartmentDto;
+import com.department.hospital.service.DepartmentService;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
 
-	@Autowired
-	private DepartmentService departmentService;
+	private final DepartmentService departmentService;
 
 	@GetMapping
 	public ResponseEntity<DepartmentDto> getDepartment(@RequestParam String name) {

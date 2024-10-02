@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
+import com.department.hospital.service.PatientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,7 +43,7 @@ class PatientServiceImplTest {
 	private PatientMapper patientMapper;
 
 	@InjectMocks
-	private PatientServiceImpl testedInstance;
+	private PatientService testedInstance;
 
 	private RegisterPatientDto registerPatientDto;
 

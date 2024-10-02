@@ -1,13 +1,16 @@
 package com.department.hospital.service.mail;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
+@RequiredArgsConstructor
+@Service
 public class HospitalMailService {
 
 	private static final String PATIENT_RELEASED = "Patient Released";
@@ -15,8 +18,7 @@ public class HospitalMailService {
 	private static final String RELEASE_MSG_FORMAT = "Hello. Patient ID - %s, name - %s %s was released from hospital.";
 	private static final String NEW_PATIENT_MSG_FORMAT = "Hello. You have new patient. Patient ID - %s, name - %s %s is. Room - %s";
 
-	@Autowired
-	private JavaMailSender mailSender;
+	private final JavaMailSender mailSender;
 
 	@Async
 	public void sendTreatmentEndDateMsg(String toMail, Long patientId, String firstName, String lastName) {

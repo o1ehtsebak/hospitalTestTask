@@ -5,7 +5,6 @@ import static org.apache.commons.collections4.CollectionUtils.isNotEmpty;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,21 +13,21 @@ import com.department.hospital.entity.Patient;
 import com.department.hospital.repository.PatientRepository;
 import com.department.hospital.service.mail.HospitalMailService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
+@RequiredArgsConstructor
 @Slf4j
 @Component
 public class PatientDatesScheduler {
 
-	@Autowired
-	private HospitalMailService hospitalMailService;
-	@Autowired
-	private PatientRepository patientRepository;
+	private final HospitalMailService hospitalMailService;
+	private final PatientRepository patientRepository;
 
 	// Cron for local testing - every minute
 	//	@Scheduled(cron = "0 */1 * * * *")
-	@Scheduled(cron = "0 0 0 * * *") // every day at midnight 
+	@Scheduled(cron = "0 0 0 * * *") // every day at midnight
 	public void checkPatientTreatmentEndDates() {
 		LOGGER.info("Start processing patients treatment days");
 
