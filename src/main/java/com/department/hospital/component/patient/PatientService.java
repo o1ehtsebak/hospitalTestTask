@@ -3,7 +3,7 @@ package com.department.hospital.component.patient;
 import org.springframework.stereotype.Service;
 
 import com.department.hospital.component.doctor.Doctor;
-import com.department.hospital.component.doctor.DoctorsRepository;
+import com.department.hospital.component.doctor.DoctorRepository;
 import com.department.hospital.component.doctor.mail.HospitalMailService;
 import com.department.hospital.component.room.Room;
 import com.department.hospital.component.room.RoomsRepository;
@@ -20,10 +20,10 @@ public class PatientService {
 	private final HospitalMailService hospitalMailService;
 	private final PatientRepository patientRepository;
 	private final RoomsRepository roomsRepository;
-	private final DoctorsRepository doctorsRepository;
+	private final DoctorRepository doctorRepository;
 
 	public RegisterPatientResponseDto registerPatient(RegisterPatientRequestDto registerPatientRequestDto) {
-		final Doctor doctor = doctorsRepository.findById(registerPatientRequestDto.getDoctorId())
+		final Doctor doctor = doctorRepository.findById(registerPatientRequestDto.getDoctorId())
 				.orElseThrow(EntityExistsException::new);
 		final Room room = roomsRepository.findById(registerPatientRequestDto.getRoomId()).orElseThrow(EntityExistsException::new);
 

@@ -12,6 +12,6 @@ public interface DoctorMapper {
 	DoctorDto doctorToDoctorDto(Doctor doctor);
 
 	@Mapping(target = "departments", ignore = true)
-	Doctor updateDoctorDtoToDoctor(CreateDoctorDto createDoctorDto);
+	Doctor updateDoctorDtoToDoctor(DoctorRequestDto doctorRequestDto);
 
 }

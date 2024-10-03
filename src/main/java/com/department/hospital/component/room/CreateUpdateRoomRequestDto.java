@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateUpdateRoomDto {
+public class CreateUpdateRoomRequestDto {
 
 	private Long departmentId;
 	@Min(1)

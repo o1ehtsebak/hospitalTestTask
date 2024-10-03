@@ -26,15 +26,15 @@ public class RoomsController {
 	}
 
 	@PostMapping("/{departmentId}/rooms")
-	public ResponseEntity<RoomDto> createRoom(@Valid @Min(1) @PathVariable Long departmentId, @RequestBody @Valid CreateUpdateRoomDto createUpdateRoomDto) {
-		createUpdateRoomDto.setDepartmentId(departmentId);
-		return ResponseEntity.status(HttpStatus.CREATED).body(roomService.createRoom(createUpdateRoomDto));
+	public ResponseEntity<CreateUpdateRoomResponseDto> createRoom(@Valid @Min(1) @PathVariable Long departmentId, @RequestBody @Valid CreateUpdateRoomRequestDto createUpdateRoomRequestDto) {
+		createUpdateRoomRequestDto.setDepartmentId(departmentId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(roomService.createRoom(createUpdateRoomRequestDto));
 	}
 
 	@PutMapping("/{departmentId}/rooms")
-	public ResponseEntity<RoomDto> updateRoom(@PathVariable Long departmentId, @RequestBody @Valid CreateUpdateRoomDto createUpdateRoomDto) {
-		createUpdateRoomDto.setDepartmentId(departmentId);
-		return roomService.updateRoom(createUpdateRoomDto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	public ResponseEntity<CreateUpdateRoomResponseDto> updateRoom(@PathVariable Long departmentId, @RequestBody @Valid CreateUpdateRoomRequestDto createUpdateRoomRequestDto) {
+		createUpdateRoomRequestDto.setDepartmentId(departmentId);
+		return roomService.updateRoom(createUpdateRoomRequestDto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 }

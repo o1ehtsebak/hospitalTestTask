@@ -9,6 +9,7 @@ import com.department.hospital.component.department.Department;
 import com.department.hospital.component.department.DepartmentsRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
 
 @Service
@@ -26,28 +27,28 @@ public class RoomService {
 		return roomsRepository.getRoomByDepartmentIdAndNumber(departmentId, roomNumber).map(roomMapper::roomToRoomDto);
 	}
 
-	public RoomDto createRoom(CreateUpdateRoomDto createUpdateRoomDto) {
-		final Department department = departmentsRepository.findById(createUpdateRoomDto.getDepartmentId())
+	public CreateUpdateRoomResponseDto createRoom(CreateUpdateRoomRequestDto createUpdateRoomRequestDto) {
+		final Department department = departmentsRepository.findById(createUpdateRoomRequestDto.getDepartmentId())
 				.orElseThrow(() -> new EntityNotFoundException(
-						String.format("Department not found for ID - %s", createUpdateRoomDto.getDepartmentId())));
-		final Room newRoom = roomMapper.updateRoomDtoToRoom(createUpdateRoomDto);
+						String.format("Department not found for ID - %s", createUpdateRoomRequestDto.getDepartmentId())));
+		final Room newRoom = roomMapper.updateRoomDtoToRoom(createUpdateRoomRequestDto);
 		newRoom.setDepartment(department);
 		roomsRepository.save(newRoom);
 
-		return roomMapper.roomToRoomDto(newRoom);
+		return new CreateUpdateRoomResponseDto(roomMapper.roomToRoomDto(newRoom));
 	}
 
-	public Optional<RoomDto> updateRoom(CreateUpdateRoomDto createUpdateRoomDto) {
+	public Optional<CreateUpdateRoomResponseDto> updateRoom(CreateUpdateRoomRequestDto createUpdateRoomRequestDto) {
 		return roomsRepository
-				.getRoomByDepartmentIdAndNumber(createUpdateRoomDto.getDepartmentId(), createUpdateRoomDto.getOriginalNumber())
-				.map(room -> updateRoom(createUpdateRoomDto, room));
-
+				.getRoomByDepartmentIdAndNumber(createUpdateRoomRequestDto.getDepartmentId(),
+						createUpdateRoomRequestDto.getOriginalNumber())
+				.map(room -> updateRoom(createUpdateRoomRequestDto, room));
 	}
 
-	private RoomDto updateRoom(CreateUpdateRoomDto createUpdateRoomDto, Room room) {
-		room.setNumber(createUpdateRoomDto.getNumber());
-		room.setNumberOfPlaces(createUpdateRoomDto.getNumberOfPlaces());
+	private CreateUpdateRoomResponseDto updateRoom(CreateUpdateRoomRequestDto createUpdateRoomRequestDto, Room room) {
+		room.setNumber(createUpdateRoomRequestDto.getNumber());
+		room.setNumberOfPlaces(createUpdateRoomRequestDto.getNumberOfPlaces());
 		roomsRepository.save(room);
-		return roomMapper.roomToRoomDto(room);
+		return new CreateUpdateRoomResponseDto(roomMapper.roomToRoomDto(room));
 	}
 }

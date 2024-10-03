@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import java.util.Optional;
 
 import com.department.hospital.component.doctor.Doctor;
-import com.department.hospital.component.doctor.DoctorsRepository;
+import com.department.hospital.component.doctor.DoctorRepository;
 import com.department.hospital.component.patient.*;
 import com.department.hospital.component.room.Room;
 import com.department.hospital.component.room.RoomsRepository;
@@ -37,7 +37,7 @@ class PatientServiceImplTest {
 	@Mock
 	private RoomsRepository roomsRepository;
 	@Mock
-	private DoctorsRepository doctorsRepository;
+	private DoctorRepository doctorRepository;
 	@Mock
 	private HospitalMailService hospitalMailService;
 	@Mock
@@ -62,7 +62,7 @@ class PatientServiceImplTest {
 		when(doctor.getEmail()).thenReturn(DOC_MAIL);
 		final Room room = mock(Room.class);
 		when(room.getNumber()).thenReturn(ROOM_NUMBER);
-		when(doctorsRepository.findById(DOCTOR_ID)).thenReturn(Optional.of(doctor));
+		when(doctorRepository.findById(DOCTOR_ID)).thenReturn(Optional.of(doctor));
 		when(roomsRepository.findById(ROOM_ID)).thenReturn(Optional.of(room));
 		final Patient registeredPatient = mock(Patient.class);
 		when(patientMapper.registerPatientRequestDtoToPatient(registerPatientRequestDto)).thenReturn(registeredPatient);
