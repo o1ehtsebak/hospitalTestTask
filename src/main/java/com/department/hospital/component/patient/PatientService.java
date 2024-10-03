@@ -6,7 +6,7 @@ import com.department.hospital.component.doctor.Doctor;
 import com.department.hospital.component.doctor.DoctorRepository;
 import com.department.hospital.component.doctor.mail.HospitalMailService;
 import com.department.hospital.component.room.Room;
-import com.department.hospital.component.room.RoomsRepository;
+import com.department.hospital.component.room.RoomRepository;
 
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +19,13 @@ public class PatientService {
 	private final PatientMapper patientMapper;
 	private final HospitalMailService hospitalMailService;
 	private final PatientRepository patientRepository;
-	private final RoomsRepository roomsRepository;
+	private final RoomRepository roomRepository;
 	private final DoctorRepository doctorRepository;
 
 	public RegisterPatientResponseDto registerPatient(RegisterPatientRequestDto registerPatientRequestDto) {
 		final Doctor doctor = doctorRepository.findById(registerPatientRequestDto.getDoctorId())
 				.orElseThrow(EntityExistsException::new);
-		final Room room = roomsRepository.findById(registerPatientRequestDto.getRoomId()).orElseThrow(EntityExistsException::new);
+		final Room room = roomRepository.findById(registerPatientRequestDto.getRoomId()).orElseThrow(EntityExistsException::new);
 
 		final Patient registeredPatient = patientMapper.registerPatientRequestDtoToPatient(registerPatientRequestDto);
 		registeredPatient.setDoctor(doctor);

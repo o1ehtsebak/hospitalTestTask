@@ -18,14 +18,14 @@ import lombok.RequiredArgsConstructor;
 public class DepartmentService {
 
 	private final DepartmentMapper departmentMapper;
-	private final DepartmentsRepository departmentsRepository;
+	private final DepartmentRepository departmentRepository;
 
 	public Optional<DepartmentDto> findDepartmentByName(String name) {
-		return departmentsRepository.getDepartmentByName(name).map(departmentMapper::departmentToDepartmentDto);
+		return departmentRepository.getDepartmentByName(name).map(departmentMapper::departmentToDepartmentDto);
 	}
 
 	public DepartmentLoadDto getDepartmentLoadInfo(Long id) {
-		final Department department = departmentsRepository.getReferenceById(id);
+		final Department department = departmentRepository.getReferenceById(id);
 
 		final List<RoomLoadDto> roomsLoadDto = department.getRooms().stream().map(room -> {
 			final int numberOfPlaces = room.getNumberOfPlaces();
@@ -48,11 +48,11 @@ public class DepartmentService {
 
 	private void updateDepartmentName(String name, Department newDepartment) {
 		newDepartment.setName(name);
-		departmentsRepository.save(newDepartment);
+		departmentRepository.save(newDepartment);
 	}
 
 	public Optional<CreateUpdateDepartmentResponseDto> updateDepartment(UpdateDepartmentRequestDto departmentDto) {
-		return departmentsRepository.findById(departmentDto.getDepartmentId()).map(department -> {
+		return departmentRepository.findById(departmentDto.getDepartmentId()).map(department -> {
 			updateDepartmentName(departmentDto.getName(), department);
 
 			return departmentMapper.departmentToDepartmentResponse(department);

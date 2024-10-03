@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.department.hospital.component.department.Department;
-import com.department.hospital.component.department.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,14 +19,14 @@ public class DoctorService {
 
 	private final DoctorMapper doctorMapper;
 	private final DoctorRepository doctorRepository;
-	private final DepartmentsRepository departmentsRepository;
+	private final DepartmentRepository departmentRepository;
 
 	public Optional<DoctorDto> findDoctor(Long id) {
 		return doctorRepository.findById(id).map(doctorMapper::doctorToDoctorDto);
 	}
 
 	public DoctorResponseDto createDoctor(DoctorRequestDto doctorRequestDto) {
-		final List<Department> departments = departmentsRepository.findAllById(doctorRequestDto.departments());
+		final List<Department> departments = departmentRepository.findAllById(doctorRequestDto.departments());
 
 		final Doctor newDoctor = doctorMapper.updateDoctorDtoToDoctor(doctorRequestDto);
 		newDoctor.setDepartments(departments);
@@ -42,7 +42,7 @@ public class DoctorService {
 
 	private DoctorDto makeUpdate(Doctor doctor, DoctorRequestDto createDoctorDto) {
 		final List<Department> oldDepartments = doctor.getDepartments();
-		final List<Department> newDepartments = departmentsRepository.findAllById(createDoctorDto.departments());
+		final List<Department> newDepartments = departmentRepository.findAllById(createDoctorDto.departments());
 		doctor.setFirstName(createDoctorDto.firstName());
 		doctor.setLastName(createDoctorDto.lastName());
 		doctor.setDepartments(newDepartments);
@@ -52,7 +52,7 @@ public class DoctorService {
 		oldDepartments.removeAll(newDepartments);
 		oldDepartments.forEach(dep -> dep.getDoctors().remove(doctor));
 
-		departmentsRepository.saveAll(oldDepartments);
+		departmentRepository.saveAll(oldDepartments);
 		doctorRepository.save(doctor);
 
 		return doctorMapper.doctorToDoctorDto(doctor);

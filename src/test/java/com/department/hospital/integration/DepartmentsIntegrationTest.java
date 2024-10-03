@@ -22,7 +22,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import com.department.hospital.component.department.DepartmentDto;
 import com.department.hospital.component.department.Department;
-import com.department.hospital.component.department.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentRepository;
 
 
 @Testcontainers
@@ -38,7 +38,7 @@ public class DepartmentsIntegrationTest {
 	static MySQLContainer mySQLContainer = new MySQLContainer<>(DockerImageName.parse("mysql:8.0-debian"));
 
 	@Autowired
-	private DepartmentsRepository departmentsRepository;
+	private DepartmentRepository departmentRepository;
 	@LocalServerPort
 	private Integer port;
 	@Autowired
@@ -70,7 +70,7 @@ public class DepartmentsIntegrationTest {
 
 	@Test
 	public void shouldGetAllDepartments() {
-		final List<Department> allDepartments = departmentsRepository.findAll();
+		final List<Department> allDepartments = departmentRepository.findAll();
 
 		assertEquals(EXPECTED_DEPARTMENTS_COUNT, allDepartments.size());
 	}
@@ -80,7 +80,7 @@ public class DepartmentsIntegrationTest {
 		final Department dep1 = new Department();
 		dep1.setName(DEP_NAME_1);
 
-		departmentsRepository.saveAll(List.of(dep1));
+		departmentRepository.saveAll(List.of(dep1));
 
 		ResponseEntity<DepartmentDto> response = restTemplate.getForEntity(String.format("/departments?name=%s", DEP_NAME_1),
 				DepartmentDto.class);

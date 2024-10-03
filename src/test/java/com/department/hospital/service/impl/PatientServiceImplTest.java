@@ -9,7 +9,7 @@ import com.department.hospital.component.doctor.Doctor;
 import com.department.hospital.component.doctor.DoctorRepository;
 import com.department.hospital.component.patient.*;
 import com.department.hospital.component.room.Room;
-import com.department.hospital.component.room.RoomsRepository;
+import com.department.hospital.component.room.RoomRepository;
 import com.department.hospital.component.patient.PatientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +35,7 @@ class PatientServiceImplTest {
 	@Mock
 	private PatientRepository patientRepository;
 	@Mock
-	private RoomsRepository roomsRepository;
+	private RoomRepository roomRepository;
 	@Mock
 	private DoctorRepository doctorRepository;
 	@Mock
@@ -63,7 +63,7 @@ class PatientServiceImplTest {
 		final Room room = mock(Room.class);
 		when(room.getNumber()).thenReturn(ROOM_NUMBER);
 		when(doctorRepository.findById(DOCTOR_ID)).thenReturn(Optional.of(doctor));
-		when(roomsRepository.findById(ROOM_ID)).thenReturn(Optional.of(room));
+		when(roomRepository.findById(ROOM_ID)).thenReturn(Optional.of(room));
 		final Patient registeredPatient = mock(Patient.class);
 		when(patientMapper.registerPatientRequestDtoToPatient(registerPatientRequestDto)).thenReturn(registeredPatient);
 

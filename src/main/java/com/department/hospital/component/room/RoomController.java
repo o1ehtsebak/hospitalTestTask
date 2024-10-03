@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.department.hospital.component.department.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentRepository;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -14,11 +14,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/departments")
-public class RoomsController {
+public class RoomController {
 
 	private final RoomService roomService;
-	private final RoomsRepository roomsRepository;
-	private final DepartmentsRepository departmentsRepository;
+	private final RoomRepository roomRepository;
+	private final DepartmentRepository departmentRepository;
 
 	@GetMapping("/{departmentId}/rooms")
 	public ResponseEntity<RoomDto> getRoom(@Valid @Min(1) @PathVariable Long departmentId, @Valid @Min(1) @RequestParam Integer roomNumber) {

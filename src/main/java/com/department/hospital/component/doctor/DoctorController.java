@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.department.hospital.component.department.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentRepository;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class DoctorController {
 
 	private final DoctorService doctorService;
-	private final DepartmentsRepository departmentsRepository;
+	private final DepartmentRepository departmentRepository;
 
 	@GetMapping
 	public ResponseEntity<DoctorDto> getDoctor(@Valid @Min(1) @RequestParam Long doctorId) {

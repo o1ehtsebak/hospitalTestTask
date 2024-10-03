@@ -19,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.department.hospital.component.department.DepartmentLoadDto;
 import com.department.hospital.component.room.RoomLoadDto;
 import com.department.hospital.component.department.DepartmentMapper;
-import com.department.hospital.component.department.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentRepository;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +28,7 @@ class DepartmentServiceImplTest {
 	private static final long DEPARTMENT_ID = 1L;
 	private static final int ROOM_NUMBER_OF_PLACES = 100;
 	@Mock
-	private DepartmentsRepository departmentsRepository;
+	private DepartmentRepository departmentRepository;
 	@Mock
 	private DepartmentMapper departmentMapper;
 
@@ -45,7 +45,7 @@ class DepartmentServiceImplTest {
 				mock(Patient.class));
 		when(room.getPatients()).thenReturn(patients);
 		when(department.getRooms()).thenReturn(Collections.singletonList(room));
-		when(departmentsRepository.getReferenceById(DEPARTMENT_ID)).thenReturn(department);
+		when(departmentRepository.getReferenceById(DEPARTMENT_ID)).thenReturn(department);
 
 		final int expectedAvailablePlaced = ROOM_NUMBER_OF_PLACES - patients.size();
 		final String expectedLoadPercent = String.format("%s", Double.valueOf(patients.size()));
