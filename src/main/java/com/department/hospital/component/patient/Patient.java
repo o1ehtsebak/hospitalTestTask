@@ -20,14 +20,14 @@ public class Patient {
 	private long id;
 	private String firstName;
 	private String lastName;
-
 	@ManyToOne
 	@JoinColumn(name = "room_id")
 	private Room room;
-
 	@ManyToOne
 	@JoinColumn(name = "doctor_id")
 	private Doctor doctor;
+	@Column(length = 2048)
+	private String illnessDescription;
 	private LocalDateTime treatmentStartDate;
 	private LocalDateTime treatmentEndDate;
 	private boolean released;

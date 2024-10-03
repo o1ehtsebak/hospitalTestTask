@@ -9,10 +9,10 @@ public interface PatientMapper {
 
 	PatientMapper INSTANCE = Mappers.getMapper(PatientMapper.class);
 
-	@Mapping(source = "doctor.id", target = "doctorId")
-	PatientDto patientToPatientDto(Patient patient);
+	@Mapping(target = "doctorId", source = "doctor.id")
+	PatientDto patientToRegisterPatientResponseDto(Patient patient);
 
 	@Mapping(target = "id", ignore = true)
-	Patient patientDtoToPatient(RegisterPatientDto registerPatientDto);
+	Patient registerPatientRequestDtoToPatient(RegisterPatientRequestDto registerPatientRequestDto);
 
 }

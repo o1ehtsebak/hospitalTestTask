@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateUpdateDoctorDto {
+public class UpdateDoctorDto {
 
 	private Long id;
 	@NotBlank

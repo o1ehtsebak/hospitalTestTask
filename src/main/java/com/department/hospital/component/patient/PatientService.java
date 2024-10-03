@@ -1,12 +1,12 @@
 package com.department.hospital.component.patient;
 
-import com.department.hospital.component.doctor.Doctor;
-import com.department.hospital.component.doctor.DoctorsRepository;
-import com.department.hospital.component.room.Room;
-import com.department.hospital.component.room.RoomsRepository;
 import org.springframework.stereotype.Service;
 
+import com.department.hospital.component.doctor.Doctor;
+import com.department.hospital.component.doctor.DoctorsRepository;
 import com.department.hospital.component.doctor.mail.HospitalMailService;
+import com.department.hospital.component.room.Room;
+import com.department.hospital.component.room.RoomsRepository;
 
 import jakarta.persistence.EntityExistsException;
 import lombok.RequiredArgsConstructor;
@@ -22,17 +22,19 @@ public class PatientService {
 	private final RoomsRepository roomsRepository;
 	private final DoctorsRepository doctorsRepository;
 
-	public PatientDto registerPatient(RegisterPatientDto registerPatientDto) {
-		final Doctor doctor = doctorsRepository.findById(registerPatientDto.getDoctorId()).orElseThrow(EntityExistsException::new);
-		final Room room = roomsRepository.findById(registerPatientDto.getRoomId()).orElseThrow(EntityExistsException::new);
+	public RegisterPatientResponseDto registerPatient(RegisterPatientRequestDto registerPatientRequestDto) {
+		final Doctor doctor = doctorsRepository.findById(registerPatientRequestDto.getDoctorId())
+				.orElseThrow(EntityExistsException::new);
+		final Room room = roomsRepository.findById(registerPatientRequestDto.getRoomId()).orElseThrow(EntityExistsException::new);
 
-		final Patient registeredPatient = patientMapper.patientDtoToPatient(registerPatientDto);
+		final Patient registeredPatient = patientMapper.registerPatientRequestDtoToPatient(registerPatientRequestDto);
 		registeredPatient.setDoctor(doctor);
 		registeredPatient.setRoom(room);
 
 		patientRepository.save(registeredPatient);
 		hospitalMailService.sendNewPatientMsg(doctor.getEmail(), registeredPatient.getId(), registeredPatient.getFirstName(),
 				registeredPatient.getLastName(), room.getNumber());
-		return patientMapper.patientToPatientDto(registeredPatient);
+		final PatientDto patientDto = patientMapper.patientToRegisterPatientResponseDto(registeredPatient);
+		return new RegisterPatientResponseDto(patientDto);
 	}
 }

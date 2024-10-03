@@ -6,13 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.department.hospital.component.department.*;
-import com.department.hospital.component.room.RoomLoadDto;
 import org.springframework.stereotype.Service;
 
-import com.department.hospital.component.department.CreateUpdateDepartmentDto;
-import com.department.hospital.component.department.DepartmentMapper;
-import com.department.hospital.component.department.DepartmentsRepository;
+import com.department.hospital.component.room.RoomLoadDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,10 +40,10 @@ public class DepartmentService {
 		return new DepartmentLoadDto(department.getId(), department.getName(), roomsLoadDto);
 	}
 
-	public DepartmentDto createDepartment(CreateUpdateDepartmentDto departmentDto) {
+	public CreateUpdateDepartmentResponseDto createDepartment(CreateDepartmentRequestDto departmentDto) {
 		final Department newDepartment = new Department();
-		updateDepartmentName(departmentDto.getName(), newDepartment);
-		return departmentMapper.departmentToDepartmentDto(newDepartment);
+		updateDepartmentName(departmentDto.name(), newDepartment);
+		return departmentMapper.departmentToDepartmentResponse(newDepartment);
 	}
 
 	private void updateDepartmentName(String name, Department newDepartment) {
@@ -55,15 +51,11 @@ public class DepartmentService {
 		departmentsRepository.save(newDepartment);
 	}
 
-	public Optional<DepartmentDto> updateDepartment(CreateUpdateDepartmentDto departmentDto) {
+	public Optional<CreateUpdateDepartmentResponseDto> updateDepartment(UpdateDepartmentRequestDto departmentDto) {
 		return departmentsRepository.findById(departmentDto.getDepartmentId()).map(department -> {
 			updateDepartmentName(departmentDto.getName(), department);
 
-			return departmentMapper.departmentToDepartmentDto(department);
+			return departmentMapper.departmentToDepartmentResponse(department);
 		});
-	}
-
-	public List<Department> getAllDepartments() {
-		return departmentsRepository.findAll();
 	}
 }

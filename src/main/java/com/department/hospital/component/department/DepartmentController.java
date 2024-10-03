@@ -21,20 +21,20 @@ public class DepartmentController {
 				.orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
-	@GetMapping("/stats")
+	@GetMapping("/load")
 	public DepartmentLoadDto getDepartmentLoadInfo(@RequestParam Long id) {
 		return departmentService.getDepartmentLoadInfo(id);
 	}
 
 	@PostMapping
-	public ResponseEntity<DepartmentDto> createDepartment(@RequestBody @Valid CreateUpdateDepartmentDto createUpdateDepartmentDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(departmentService.createDepartment(createUpdateDepartmentDto));
+	public ResponseEntity<CreateUpdateDepartmentResponseDto> createDepartment(@RequestBody @Valid CreateDepartmentRequestDto createDepartmentRequestDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(departmentService.createDepartment(createDepartmentRequestDto));
 	}
 
 	@PutMapping("/{departmentId}")
-	public ResponseEntity<DepartmentDto> updateDepartment(@PathVariable Long departmentId, @RequestBody @Valid CreateUpdateDepartmentDto createUpdateDepartmentDto) {
-		createUpdateDepartmentDto.setDepartmentId(departmentId);
-		return departmentService.updateDepartment(createUpdateDepartmentDto)
+	public ResponseEntity<CreateUpdateDepartmentResponseDto> updateDepartment(@PathVariable Long departmentId, @RequestBody @Valid UpdateDepartmentRequestDto updateDepartmentRequestDto) {
+		updateDepartmentRequestDto.setDepartmentId(departmentId);
+		return departmentService.updateDepartment(updateDepartmentRequestDto)
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());
 	}

@@ -25,13 +25,13 @@ public class DoctorsController {
 	}
 
 	@PostMapping
-	public ResponseEntity<DoctorDto> createDoctor(@RequestBody @Valid CreateUpdateDoctorDto createUpdateDoctorDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(doctorsService.createDoctor(createUpdateDoctorDto));
+	public ResponseEntity<DoctorDto> createDoctor(@RequestBody @Valid CreateDoctorDto createDoctorDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(doctorsService.createDoctor(createDoctorDto));
 	}
 
 	@PutMapping("/{doctorId}")
-	public ResponseEntity<DoctorDto> updateDoctor(@PathVariable Long doctorId, @RequestBody @Valid CreateUpdateDoctorDto createUpdateDoctorDto) {
-		createUpdateDoctorDto.setId(doctorId);
-		return doctorsService.updateDoctor(createUpdateDoctorDto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	public ResponseEntity<DoctorDto> updateDoctor(@PathVariable Long doctorId, @RequestBody @Valid CreateDoctorDto createDoctorDto) {
+		createDoctorDto.setId(doctorId);
+		return doctorsService.updateDoctor(createDoctorDto).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 }

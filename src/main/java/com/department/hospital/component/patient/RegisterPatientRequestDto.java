@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class RegisterPatientDto {
+public class RegisterPatientRequestDto {
 
 	private Long id;
 	@Valid

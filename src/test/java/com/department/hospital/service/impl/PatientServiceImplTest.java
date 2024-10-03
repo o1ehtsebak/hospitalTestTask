@@ -46,13 +46,13 @@ class PatientServiceImplTest {
 	@InjectMocks
 	private PatientService testedInstance;
 
-	private RegisterPatientDto registerPatientDto;
+	private RegisterPatientRequestDto registerPatientRequestDto;
 
 	@BeforeEach
 	void setUp() {
-		this.registerPatientDto = new RegisterPatientDto();
-		this.registerPatientDto.setDoctorId(DOCTOR_ID);
-		this.registerPatientDto.setRoomId(ROOM_ID);
+		this.registerPatientRequestDto = new RegisterPatientRequestDto();
+		this.registerPatientRequestDto.setDoctorId(DOCTOR_ID);
+		this.registerPatientRequestDto.setRoomId(ROOM_ID);
 	}
 
 	@Test
@@ -65,10 +65,10 @@ class PatientServiceImplTest {
 		when(doctorsRepository.findById(DOCTOR_ID)).thenReturn(Optional.of(doctor));
 		when(roomsRepository.findById(ROOM_ID)).thenReturn(Optional.of(room));
 		final Patient registeredPatient = mock(Patient.class);
-		when(patientMapper.patientDtoToPatient(registerPatientDto)).thenReturn(registeredPatient);
+		when(patientMapper.registerPatientRequestDtoToPatient(registerPatientRequestDto)).thenReturn(registeredPatient);
 
 		//when
-		final PatientDto actualPatientDto = testedInstance.registerPatient(registerPatientDto);
+		final RegisterPatientResponseDto actualRegisterPatientResponseDto = testedInstance.registerPatient(registerPatientRequestDto);
 
 		//then
 		verify(registeredPatient).setDoctor(doctor);

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class CreateUpdateDepartmentDto {
+public class UpdateDepartmentRequestDto {
 
 	private Long departmentId;
 	@Valid

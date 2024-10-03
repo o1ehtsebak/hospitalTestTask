@@ -7,13 +7,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.department.hospital.component.doctor.DoctorDto;
-import com.department.hospital.component.doctor.CreateUpdateDoctorDto;
 import com.department.hospital.component.department.Department;
-import com.department.hospital.component.doctor.Doctor;
-import com.department.hospital.component.doctor.DoctorMapper;
 import com.department.hospital.component.department.DepartmentsRepository;
-import com.department.hospital.component.doctor.DoctorsRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,10 +25,10 @@ public class DoctorsService {
 		return doctorsRepository.findById(id).map(doctorMapper::doctorToDoctorDto);
 	}
 
-	public DoctorDto createDoctor(CreateUpdateDoctorDto createUpdateDoctorDto) {
-		final List<Department> departments = departmentsRepository.findAllById(createUpdateDoctorDto.getDepartments());
+	public DoctorDto createDoctor(CreateDoctorDto createDoctorDto) {
+		final List<Department> departments = departmentsRepository.findAllById(createDoctorDto.getDepartments());
 
-		final Doctor newDoctor = doctorMapper.updateDoctorDtoToDoctor(createUpdateDoctorDto);
+		final Doctor newDoctor = doctorMapper.updateDoctorDtoToDoctor(createDoctorDto);
 		newDoctor.setDepartments(departments);
 		departments.forEach(dep -> dep.getDoctors().add(newDoctor));
 
@@ -41,15 +36,15 @@ public class DoctorsService {
 		return doctorMapper.doctorToDoctorDto(newDoctor);
 	}
 
-	public Optional<DoctorDto> updateDoctor(CreateUpdateDoctorDto createUpdateDoctorDto) {
-		final Optional<Doctor> doctorOptional = doctorsRepository.findById(createUpdateDoctorDto.getId());
+	public Optional<DoctorDto> updateDoctor(CreateDoctorDto createDoctorDto) {
+		final Optional<Doctor> doctorOptional = doctorsRepository.findById(createDoctorDto.getId());
 		if (doctorOptional.isPresent()) {
 			final Doctor doctor = doctorOptional.get();
 			final List<Department> oldDepartments = doctor.getDepartments();
 
-			final List<Department> newDepartments = departmentsRepository.findAllById(createUpdateDoctorDto.getDepartments());
-			doctor.setFirstName(createUpdateDoctorDto.getFirstName());
-			doctor.setLastName(createUpdateDoctorDto.getLastName());
+			final List<Department> newDepartments = departmentsRepository.findAllById(createDoctorDto.getDepartments());
+			doctor.setFirstName(createDoctorDto.getFirstName());
+			doctor.setLastName(createDoctorDto.getLastName());
 			doctor.setDepartments(newDepartments);
 			newDepartments.stream().filter(dep -> isNotEmpty(dep.getDoctors())).filter(dep -> !dep.getDoctors().contains(doctor))
 					.forEach(dep -> dep.getDoctors().add(doctor));
