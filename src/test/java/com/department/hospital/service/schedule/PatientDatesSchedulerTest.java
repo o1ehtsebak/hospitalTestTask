@@ -6,16 +6,17 @@ import static org.mockito.Mockito.*;
 import java.util.Collections;
 import java.util.List;
 
+import com.department.hospital.component.doctor.mail.PatientDatesScheduler;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.department.hospital.entity.Doctor;
-import com.department.hospital.entity.Patient;
-import com.department.hospital.repository.PatientRepository;
-import com.department.hospital.service.mail.HospitalMailService;
+import com.department.hospital.component.doctor.Doctor;
+import com.department.hospital.component.patient.Patient;
+import com.department.hospital.component.patient.PatientRepository;
+import com.department.hospital.component.doctor.mail.HospitalMailService;
 
 
 @ExtendWith(MockitoExtension.class)

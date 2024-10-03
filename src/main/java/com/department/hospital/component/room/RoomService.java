@@ -1,0 +1,53 @@
+package com.department.hospital.component.room;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.department.hospital.component.department.Department;
+import com.department.hospital.component.department.DepartmentsRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
+
+@Service
+public class RoomService {
+
+
+	@Autowired
+	private RoomsRepository roomsRepository;
+	@Autowired
+	private DepartmentsRepository departmentsRepository;
+	@Autowired
+	private RoomMapper roomMapper;
+
+	public Optional<RoomDto> findRoom(Long departmentId, Integer roomNumber) {
+		return roomsRepository.getRoomByDepartmentIdAndNumber(departmentId, roomNumber).map(roomMapper::roomToRoomDto);
+	}
+
+	public RoomDto createRoom(CreateUpdateRoomDto createUpdateRoomDto) {
+		final Department department = departmentsRepository.findById(createUpdateRoomDto.getDepartmentId())
+				.orElseThrow(() -> new EntityNotFoundException(
+						String.format("Department not found for ID - %s", createUpdateRoomDto.getDepartmentId())));
+		final Room newRoom = roomMapper.updateRoomDtoToRoom(createUpdateRoomDto);
+		newRoom.setDepartment(department);
+		roomsRepository.save(newRoom);
+
+		return roomMapper.roomToRoomDto(newRoom);
+	}
+
+	public Optional<RoomDto> updateRoom(CreateUpdateRoomDto createUpdateRoomDto) {
+		return roomsRepository
+				.getRoomByDepartmentIdAndNumber(createUpdateRoomDto.getDepartmentId(), createUpdateRoomDto.getOriginalNumber())
+				.map(room -> updateRoom(createUpdateRoomDto, room));
+
+	}
+
+	private RoomDto updateRoom(CreateUpdateRoomDto createUpdateRoomDto, Room room) {
+		room.setNumber(createUpdateRoomDto.getNumber());
+		room.setNumberOfPlaces(createUpdateRoomDto.getNumberOfPlaces());
+		roomsRepository.save(room);
+		return roomMapper.roomToRoomDto(room);
+	}
+}

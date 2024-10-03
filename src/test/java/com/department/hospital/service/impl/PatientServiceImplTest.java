@@ -5,7 +5,12 @@ import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
-import com.department.hospital.service.PatientService;
+import com.department.hospital.component.doctor.Doctor;
+import com.department.hospital.component.doctor.DoctorsRepository;
+import com.department.hospital.component.patient.*;
+import com.department.hospital.component.room.Room;
+import com.department.hospital.component.room.RoomsRepository;
+import com.department.hospital.component.patient.PatientService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,12 +18,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.department.hospital.dto.PatientDto;
-import com.department.hospital.dto.request.RegisterPatientDto;
-import com.department.hospital.entity.*;
-import com.department.hospital.mapper.PatientMapper;
-import com.department.hospital.repository.*;
-import com.department.hospital.service.mail.HospitalMailService;
+import com.department.hospital.component.patient.PatientMapper;
+import com.department.hospital.component.doctor.mail.HospitalMailService;
 
 
 @ExtendWith(MockitoExtension.class)

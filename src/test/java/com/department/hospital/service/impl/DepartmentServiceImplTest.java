@@ -6,18 +6,20 @@ import static org.mockito.Mockito.when;
 
 import java.util.*;
 
-import com.department.hospital.service.DepartmentService;
+import com.department.hospital.component.department.Department;
+import com.department.hospital.component.patient.Patient;
+import com.department.hospital.component.room.Room;
+import com.department.hospital.component.department.DepartmentService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.department.hospital.dto.DepartmentLoadDto;
-import com.department.hospital.dto.RoomLoadDto;
-import com.department.hospital.entity.*;
-import com.department.hospital.mapper.DepartmentMapper;
-import com.department.hospital.repository.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentLoadDto;
+import com.department.hospital.component.room.RoomLoadDto;
+import com.department.hospital.component.department.DepartmentMapper;
+import com.department.hospital.component.department.DepartmentsRepository;
 
 
 @ExtendWith(MockitoExtension.class)

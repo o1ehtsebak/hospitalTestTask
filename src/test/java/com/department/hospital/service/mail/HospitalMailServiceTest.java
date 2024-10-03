@@ -3,6 +3,7 @@ package com.department.hospital.service.mail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
+import com.department.hospital.component.doctor.mail.HospitalMailService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -20,9 +20,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import com.department.hospital.dto.DepartmentDto;
-import com.department.hospital.entity.Department;
-import com.department.hospital.repository.DepartmentsRepository;
+import com.department.hospital.component.department.DepartmentDto;
+import com.department.hospital.component.department.Department;
+import com.department.hospital.component.department.DepartmentsRepository;
 
 
 @Testcontainers
