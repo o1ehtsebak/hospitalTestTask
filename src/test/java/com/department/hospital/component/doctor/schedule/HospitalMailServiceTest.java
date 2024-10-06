@@ -1,16 +1,16 @@
-package com.department.hospital.service.mail;
+package com.department.hospital.component.doctor.schedule;
 
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 
-import com.department.hospital.component.doctor.mail.HospitalMailService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
+import com.department.hospital.component.doctor.mail.HospitalMailService;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -24,6 +24,9 @@ class HospitalMailServiceTest {
 	@Mock
 	private JavaMailSender mailSender;
 
+	@Captor
+	private ArgumentCaptor<SimpleMailMessage> mailMessageArgumentCaptor;
+
 	@InjectMocks
 	private HospitalMailService testedInstance;
 
@@ -35,6 +38,12 @@ class HospitalMailServiceTest {
 		testedInstance.sendTreatmentEndDateMsg(TO_MAIL, PATIENT_ID, TEST_FIRST_NAME, TEST_LAST_NAME);
 
 		//then
-		verify(mailSender).send(any(SimpleMailMessage.class));
+		verify(mailSender).send(mailMessageArgumentCaptor.capture());
+
+		final SimpleMailMessage mailMessage = mailMessageArgumentCaptor.getValue();
+
+		assertNotNull(mailMessage.getTo());
+		assertNotNull(mailMessage.getSubject());
+		assertNotNull(mailMessage.getText());
 	}
 }

@@ -11,22 +11,20 @@ import org.springframework.stereotype.Component;
 import com.department.hospital.component.doctor.Doctor;
 import com.department.hospital.component.patient.Patient;
 import com.department.hospital.component.patient.PatientRepository;
-import com.department.hospital.component.doctor.mail.HospitalMailService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
-@RequiredArgsConstructor
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class PatientDatesScheduler {
 
 	private final HospitalMailService hospitalMailService;
 	private final PatientRepository patientRepository;
 
-	// Cron for local testing - every minute
-	//	@Scheduled(cron = "0 */1 * * * *")
+	// Cron for local testing - every minute "0 */1 * * * *"
 	@Scheduled(cron = "0 0 0 * * *") // every day at midnight
 	public void checkPatientTreatmentEndDates() {
 		LOGGER.info("Start processing patients treatment days");
