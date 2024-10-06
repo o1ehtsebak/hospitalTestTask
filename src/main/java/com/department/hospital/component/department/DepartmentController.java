@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/departments")
+@RequiredArgsConstructor
 public class DepartmentController {
 
 	private final DepartmentService departmentService;
