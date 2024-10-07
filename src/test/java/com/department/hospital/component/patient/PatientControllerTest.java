@@ -32,6 +32,5 @@ class PatientControllerTest {
 		//then
 		assertEquals(expectedResponse, registerPatientResponseDtoResponseEntity.getBody());
 		assertEquals(HttpStatusCode.valueOf(HttpStatus.CREATED.value()), registerPatientResponseDtoResponseEntity.getStatusCode());
-
 	}
 }

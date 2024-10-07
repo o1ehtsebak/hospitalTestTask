@@ -13,6 +13,6 @@ public interface RoomMapper {
 
 	RoomDto roomToRoomDto(Room room);
 
-	Room updateRoomDtoToRoom(CreateUpdateRoomRequestDto createUpdateRoomRequestDto);
+	Room createUpdateRoomDtoToRoom(CreateUpdateRoomRequestDto createUpdateRoomRequestDto);
 
 }

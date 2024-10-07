@@ -2,25 +2,22 @@ package com.department.hospital.component.room;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.department.hospital.component.department.Department;
 import com.department.hospital.component.department.DepartmentRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 
 
 @Service
+@RequiredArgsConstructor
 public class RoomService {
 
-
-	@Autowired
-	private RoomRepository roomRepository;
-	@Autowired
-	private DepartmentRepository departmentRepository;
-	@Autowired
-	private RoomMapper roomMapper;
+	private final RoomRepository roomRepository;
+	private final DepartmentRepository departmentRepository;
+	private final RoomMapper roomMapper;
 
 	public Optional<RoomDto> findRoom(Long departmentId, Integer roomNumber) {
 		return roomRepository.getRoomByDepartmentIdAndNumber(departmentId, roomNumber).map(roomMapper::roomToRoomDto);
@@ -30,7 +27,7 @@ public class RoomService {
 		final Department department = departmentRepository.findById(createUpdateRoomRequestDto.getDepartmentId())
 				.orElseThrow(() -> new EntityNotFoundException(
 						String.format("Department not found for ID - %s", createUpdateRoomRequestDto.getDepartmentId())));
-		final Room newRoom = roomMapper.updateRoomDtoToRoom(createUpdateRoomRequestDto);
+		final Room newRoom = roomMapper.createUpdateRoomDtoToRoom(createUpdateRoomRequestDto);
 		newRoom.setDepartment(department);
 		roomRepository.save(newRoom);
 
