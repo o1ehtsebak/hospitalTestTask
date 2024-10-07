@@ -17,8 +17,8 @@ public class DoctorController {
 	private final DoctorService doctorService;
 
 	@GetMapping
-	public ResponseEntity<DoctorDto> getDoctor(@Valid @Min(1) @RequestParam Long doctorId) {
-		return doctorService.findDoctor(doctorId).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	public ResponseEntity<DoctorDto> getDoctor(@Valid @Min(1) @RequestParam Long id) {
+		return doctorService.findDoctor(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 	}
 
 	@PostMapping

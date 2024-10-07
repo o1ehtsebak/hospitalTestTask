@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DepartmentsIntegrationTest extends ContainerizedTestEnvironment {
+public class DepartmentIntegrationTest extends ContainerizedTestEnvironment {
 
 	private static final String DEPARTMENT_NAME = "Surgery";
 	private static final String NEW_DEPARTMENT_NAME = "newSurgery";
