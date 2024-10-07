@@ -3,6 +3,8 @@ package com.department.hospital.component.doctor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,13 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.department.hospital.component.config.ContainerizedTestEnvironment;
-import com.department.hospital.component.department.*;
-import org.testcontainers.shaded.org.apache.commons.lang3.math.NumberUtils;
+import com.department.hospital.component.department.Department;
+import com.department.hospital.component.department.DepartmentRepository;
+import org.springframework.test.annotation.DirtiesContext;
 
-import java.util.List;
-
-
-@Testcontainers
+@DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DoctorIntegrationTest extends ContainerizedTestEnvironment {
 

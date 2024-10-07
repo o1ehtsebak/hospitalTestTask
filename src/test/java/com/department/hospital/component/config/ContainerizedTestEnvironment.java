@@ -1,26 +1,35 @@
 package com.department.hospital.component.config;
 
-import com.icegreen.greenmail.util.GreenMail;
-import com.icegreen.greenmail.util.ServerSetup;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.test.context.*;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.mongodb.MongoDBAtlasLocalContainer;
 import org.testcontainers.utility.DockerImageName;
 
+import com.icegreen.greenmail.configuration.GreenMailConfiguration;
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
 
+
+@Testcontainers
 @ActiveProfiles("test")
 public abstract class ContainerizedTestEnvironment {
 
 	private static final int LOCAL_SMTP_PORT = 3030;
-	@Container
-	static MySQLContainer MY_SLQ_CONTAINER = new MySQLContainer<>(DockerImageName.parse("mysql:8.0-debian"));
+
+	public static GreenMail GREEN_MAIL;
+
 	@Container
 	static MongoDBAtlasLocalContainer MONGODB_ATLAS_CONTAINER = new MongoDBAtlasLocalContainer(
-			"mongodb/mongodb-atlas-local:7.0.9");
+			"mongodb/mongodb-atlas-local:7.0.9").waitingFor(Wait.forHealthcheck());
 
-	static GreenMail greenMail;
+	@Container
+	static MySQLContainer MY_SLQ_CONTAINER = new MySQLContainer<>(DockerImageName.parse("mysql:8.0-debian"))
+			.waitingFor(Wait.forHealthcheck());
 
 	@DynamicPropertySource
 	static void populateTestProperties(DynamicPropertyRegistry registry) {
@@ -32,19 +41,18 @@ public abstract class ContainerizedTestEnvironment {
 		registry.add("spring.data.mongodb.uri", () -> MONGODB_ATLAS_CONTAINER.getConnectionString());
 		registry.add("spring.mail.host", () -> "localhost");
 		registry.add("spring.mail.port", () -> LOCAL_SMTP_PORT);
-		registry.add("spring.mail.properties.mail.smtp.auth", () -> false);
-		registry.add("spring.mail.properties.mail.smtp.starttls.enable", () -> false);
 	}
 
 	@BeforeAll
 	public static void setup() {
 		// Start GreenMail SMTP server
-		greenMail = new GreenMail(new ServerSetup(LOCAL_SMTP_PORT, null, "smtp"));
-		greenMail.start();
+		GREEN_MAIL = new GreenMail(new ServerSetup(LOCAL_SMTP_PORT, null, "smtp"))
+				.withConfiguration(GreenMailConfiguration.aConfig().withDisabledAuthentication());
+		GREEN_MAIL.start();
 	}
 
 	@AfterAll
 	public static void tearDown() {
-		greenMail.stop();
+		GREEN_MAIL.stop();
 	}
 }

@@ -10,6 +10,7 @@ public interface PatientMapper {
 	PatientMapper INSTANCE = Mappers.getMapper(PatientMapper.class);
 
 	@Mapping(target = "doctorId", source = "doctor.id")
+	@Mapping(target = "roomId", source = "room.id")
 	PatientDto patientToRegisterPatientResponseDto(Patient patient);
 
 	@Mapping(target = "id", ignore = true)
