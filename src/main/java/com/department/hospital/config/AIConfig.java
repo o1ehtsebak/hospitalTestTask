@@ -22,5 +22,4 @@ public class AIConfig {
 	public ChatClient chatClient(ChatClient.Builder builder, VectorStore vectorStore){
 		return builder.defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults())).build();
 	}
-
 }

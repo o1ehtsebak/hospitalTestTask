@@ -38,5 +38,4 @@ public class DepartmentController {
 				.map(ResponseEntity::ok)
 				.orElseGet(() -> ResponseEntity.notFound().build());
 	}
-
 }

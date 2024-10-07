@@ -25,6 +25,10 @@ repositories {
 	maven { url 'https://repo.spring.io/snapshot' }
 }
 
+ext {
+	set('wiremockTestcontainersVersion', "1.0-alpha-13")
+}
+
 dependencies {
 	implementation platform("org.springframework.ai:spring-ai-bom:1.0.0-SNAPSHOT")
 	// Replace the following with the starter dependencies of specific modules you wish to use
@@ -47,6 +51,12 @@ dependencies {
 	testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.19.8'
 	testImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.19.8'
 	testImplementation group: 'org.testcontainers', name: 'mysql', version: '1.19.8'
+	testImplementation "org.testcontainers:mongodb:1.20.2"
+	testImplementation 'io.rest-assured:rest-assured'
+	testImplementation 'org.wiremock:wiremock-standalone:3.6.0'
+	testImplementation "org.wiremock.integrations.testcontainers:wiremock-testcontainers-module:${wiremockTestcontainersVersion}"
+	testImplementation 'com.icegreen:greenmail:2.0.0'
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// https://mvnrepository.com/artifact/org.mapstruct/mapstruct
