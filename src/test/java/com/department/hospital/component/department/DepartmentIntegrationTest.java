@@ -11,9 +11,9 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
+import org.springframework.test.annotation.DirtiesContext;
 
 import com.department.hospital.component.config.ContainerizedTestEnvironment;
-import org.springframework.test.annotation.DirtiesContext;
 
 
 @DirtiesContext

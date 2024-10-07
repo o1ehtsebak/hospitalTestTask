@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.annotation.PostConstruct;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 
 @Service
+@Profile("!test")
 @RequiredArgsConstructor
 public class RecommendationService {
 

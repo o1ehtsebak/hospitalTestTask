@@ -2,6 +2,8 @@ package com.department.hospital.component.config;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.ai.autoconfigure.vectorstore.mongo.MongoDBAtlasVectorStoreAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.test.context.*;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -17,6 +19,7 @@ import com.icegreen.greenmail.util.ServerSetup;
 
 @Testcontainers
 @ActiveProfiles("test")
+@EnableAutoConfiguration(exclude = MongoDBAtlasVectorStoreAutoConfiguration.class)
 public abstract class ContainerizedTestEnvironment {
 
 	private static final int LOCAL_SMTP_PORT = 3030;
