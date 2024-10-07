@@ -27,7 +27,9 @@ jobs:
     - name: Change wrapper permissions
       run: chmod +x ./gradlew
     - name: Build with Gradle
-      run: ./gradlew build test
+      env:
+        SPRING_PROFILES_ACTIVE : test
+      run: ./gradlew clean test
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
       with:
@@ -38,6 +40,8 @@ jobs:
       uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
       env:
         HOSPITAL_MAIL_SECRET: ${{ secrets.HOSPITAL_APP_MAIL_SECRET}}
+        OPEN_API_KEY: ${{ secrets.OPEN_API_KEY}}
+        MONGO_DB_ATLAS_SECRET: ${{ secrets.MONGO_DB_ATLAS_SECRET}}
       with:
         context: .
         file: ./Dockerfile
